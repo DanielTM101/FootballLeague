@@ -2,14 +2,80 @@
 <html>
 <head>
     <title>Login/Sign up</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .main-container {
+            width: 300px;
+            text-align: center;
+            padding: 20px;
+            margin: auto;
+            border: 2px solid #007BFF; 
+            border-radius: 8px; 
+            background-color: rgba(255, 255, 255, 0.9); 
+        }
+        
+        .main-container {
+            width: 300px;
+            text-align: center; 
+            padding: 20px;
+            margin: auto; 
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .index-box {
+            display: inline-block;
+            padding: 20px;
+            border: 1px solid #007BFF;
+            border-radius: 8px;
+            margin: 10px;
+        }
+
+        .index-link {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 18px;
+            text-decoration: none;
+            color: #007BFF;
+        }
+
+        .index-link:hover {
+            text-decoration: underline;
+        }
+
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <h1>Login/Sign up</h1>
-    <form method="post">
-        <input type="radio" name="action" value="login" checked> Login
-        <input type="radio" name="action" value="signup"> Sign up
-        <br><br>
-        <input type="submit" value="Submit">
-    </form>
+    <div class="main-container">
+        <h1>Welcome To My Website</h1>
+        <p>This is a platform where you can explore information about your favorite football teams and MLB teams.</p>
+        <p>Sign Up or Login to get started!</p>
+        <a href="/login" class="index-link">Login</a>
+        <a href="/signup" class="index-link">Sign up</a>
+    </div>
 </body>
+</html>
 </html>

@@ -1,8 +1,7 @@
 import sqlite3
 import requests
-<<<<<<< HEAD
 from flask import Flask, render_template, request, redirect, url_for
-import unittest
+#import unittest
 
 app = Flask(__name__)
 
@@ -11,8 +10,6 @@ users = {
     "existing_user": "existing_password"
 }
 
-=======
->>>>>>> d610682996b32821c024ae96e5949792f1c176e0
 
 # Function to fetch team information from SERP API
 def fetch_team_info(team_name, league, api_key):
@@ -22,7 +19,6 @@ def fetch_team_info(team_name, league, api_key):
         response = requests.get(url)
         response.raise_for_status()
         data = response.json()
-<<<<<<< HEAD
         
         # Check if the API returned any relevant data
         if "sports_results" not in data:
@@ -32,16 +28,10 @@ def fetch_team_info(team_name, league, api_key):
 
         # Check if the sports_results contain the required data
         if "rankings" not in sports_results or "games" not in sports_results:
-=======
-        sports_results = data.get("sports_results", {})
-        if not sports_results:
-            print(f"No information available for {team_name}.")
->>>>>>> d610682996b32821c024ae96e5949792f1c176e0
             return {}
 
         team_info = {
             "team_name": team_name,
-<<<<<<< HEAD
             "rankings": sports_results["rankings"],
             "games": sports_results["games"]
         }
@@ -58,26 +48,12 @@ def fetch_team_info(team_name, league, api_key):
 # Function to create the SQLite database and insert team info
 def create_and_insert_team_data(team_name, rankings, games):
     db_file = "teams_info.db"
-=======
-            "rankings": sports_results.get("rankings", ""),
-            "games": sports_results.get("games", [])
-        }
-        return team_info
-    except Exception as e:
-        print("Error:", e)
-        return {}
-
-# Function to create the SQLite database and insert team info
-def create_and_insert_data(team_name, rankings, games):
-    db_file = f"{team_name.lower()}_info.db"
->>>>>>> d610682996b32821c024ae96e5949792f1c176e0
     with sqlite3.connect(db_file) as conn:
         cursor = conn.cursor()
         cursor.execute("CREATE TABLE IF NOT EXISTS teams (team_name TEXT, rankings TEXT, games TEXT)")
 
         cursor.execute("INSERT INTO teams (team_name, rankings, games) VALUES (?, ?, ?)", (team_name, rankings, str(games)))
 
-<<<<<<< HEAD
 # Function to create the SQLite database and insert user info
 def create_and_insert_user_data(username, password):
     db_file = "users_info.db"
@@ -107,11 +83,6 @@ def is_user_exists(username):
 # Function to retrieve and print team info
 def print_teams_info(team_name):
     db_file = "teams_info.db"
-=======
-# Function to retrieve and print team info
-def print_teams_info(team_name):
-    db_file = f"{team_name.lower()}_info.db"
->>>>>>> d610682996b32821c024ae96e5949792f1c176e0
     with sqlite3.connect(db_file) as conn:
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM teams")
@@ -136,7 +107,6 @@ def print_teams_info(team_name):
         else:
             print("No team information available in the database.")
 
-<<<<<<< HEAD
 def authenticate_user(username, password):
     db_file = "users_info.db"
     with sqlite3.connect(db_file) as conn:
@@ -175,6 +145,7 @@ def login():
             return render_template("login.html", message="Invalid username or password.")
 
     return render_template("login.html")
+
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
@@ -230,7 +201,7 @@ def dashboard(username):
         else:
             return "No team information available. Please pick teams first."
 
-""" Include test cases in the same file
+""" 
 class TestTeamInfo(unittest.TestCase):
     def test_fetch_team_info_valid_team(self):
         # Test fetching valid team info from the API for a generic team name in the Premier League
@@ -279,25 +250,3 @@ if __name__ == "__main__":
     api_key = "268d96d42db12c081079c5c0ee8bed74c2432e32cc88e1154a55a35640c9dbab"
     app.run(debug=True)
     #unittest.main()
-=======
-if __name__ == "__main__":
-    api_key = "268d96d42db12c081079c5c0ee8bed74c2432e32cc88e1154a55a35640c9dbab"
-
-    # Get inputs for a football team and MLB team
-    football_team_input = input("Enter the name of a football team: ")
-    mlb_team_input = input("Enter the name of an MLB team: ")
-
-    # Fetch information for the football team
-    football_team_info = fetch_team_info(football_team_input, "Premier League", api_key)
-
-    # Fetch information for the MLB team
-    mlb_team_info = fetch_team_info(mlb_team_input, "MLB", api_key)
-
-    # Create and insert team info into SQLite databases
-    create_and_insert_data(football_team_info["team_name"], football_team_info["rankings"], football_team_info["games"])
-    create_and_insert_data(mlb_team_info["team_name"], mlb_team_info["rankings"], mlb_team_info["games"])
-
-    # Print team info from the databases
-    print_teams_info(football_team_info["team_name"])
-    print_teams_info(mlb_team_info["team_name"])
->>>>>>> d610682996b32821c024ae96e5949792f1c176e0
