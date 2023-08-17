@@ -1,6 +1,7 @@
 import sqlite3
 import requests
 from flask import Flask, render_template, request, redirect, url_for
+#import unittest
 
 app = Flask(__name__)
 
@@ -118,6 +119,50 @@ def dashboard(username, football_team, mlb_team):
     mlb_team_info = fetch_team_info(mlb_team, "MLB", api_key)
 
     return render_template("dashboard.html", username=username, football_team=football_team_info, mlb_team=mlb_team_info)
+
+""" 
+class TestTeamInfo(unittest.TestCase):
+    def test_fetch_team_info_valid_team(self):
+        # Test fetching valid team info from the API for a generic team name in the Premier League
+        team_name = "Arsenal"
+        league = "Premier League"
+        api_key = "268d96d42db12c081079c5c0ee8bed74c2432e32cc88e1154a55a35640c9dbab"
+        team_info = fetch_team_info(team_name, league, api_key)
+        self.assertTrue(team_info, "Valid team info should be retrieved for a generic team in the Premier League.")
+
+    def test_fetch_team_info_invalid_team(self):
+        # Test fetching invalid team info from the API for an unknown team name in Premier League
+        team_name = "Invalid Team Name"
+        league = "Premier League"
+        api_key = "268d96d42db12c081079c5c0ee8bed74c2432e32cc88e1154a55a35640c9dbab"
+        team_info = fetch_team_info(team_name, league, api_key)
+        self.assertFalse(team_info, "Invalid team info should not be retrieved for an unknown team name in Premier League.")
+
+    def test_fetch_team_info_valid_mlb_team(self):
+        # Test fetching valid team info from the API for a generic team name in MLB
+        team_name = "New York Yankees"
+        league = "MLB"
+        api_key = "268d96d42db12c081079c5c0ee8bed74c2432e32cc88e1154a55a35640c9dbab"
+        team_info = fetch_team_info(team_name, league, api_key)
+        self.assertTrue(team_info, "Valid team info should be retrieved for a generic team in MLB.")
+
+    def test_fetch_team_info_invalid_mlb_team(self):
+        # Test fetching invalid team info from the API for an unknown team name in MLB
+        team_name = "Invalid Team Name"
+        league = "MLB"
+        api_key = "268d96d42db12c081079c5c0ee8bed74c2432e32cc88e1154a55a35640c9dbab"
+        team_info = fetch_team_info(team_name, league, api_key)
+        self.assertFalse(team_info, "Invalid team info should not be retrieved for an unknown team name in MLB.")
+
+    def test_is_user_exists_existing(self):
+        # Test if an existing username is detected
+        existing_username = "bob"
+        self.assertTrue(is_user_exists(existing_username), "Existing user should be detected.")
+
+    def test_is_user_exists_new(self):
+        # Test if a new username is not detected
+        new_username = "new_user"
+        self.assertFalse(is_user_exists(new_username), "New user should not be detected.")"""
 
 if __name__ == "__main__":
     api_key = "268d96d42db12c081079c5c0ee8bed74c2432e32cc88e1154a55a35640c9dbab"
